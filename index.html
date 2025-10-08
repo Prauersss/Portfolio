@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pau Badia - Portfolio</title>
+    <link rel="icon" type="image/png" href="Images/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         * {
@@ -144,6 +145,100 @@
             align-items: center;
             padding: 2rem 0;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+            width: 100%;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .sidebar-header img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: var(--shadow-elevation-1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: var(--primary-gradient);
+            padding: 4px;
+        }
+
+        .sidebar-header span {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .sidebar:not(:hover) .sidebar-header {
+            justify-content: center;
+            padding: 0;
+        }
+
+        .sidebar:not(:hover) .sidebar-header span {
+            display: none;
+        }
+
+        .menu-toggle {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            width: 48px;
+            height: 48px;
+            border: none;
+            border-radius: 14px;
+            background: var(--surface);
+            color: var(--text-primary);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1200;
+            box-shadow: var(--shadow-elevation-2);
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--text-primary);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .menu-toggle:focus-visible {
+            outline: 2px solid rgba(132, 250, 176, 0.8);
+            outline-offset: 4px;
+        }
+
+        body.sidebar-open .menu-toggle span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        body.sidebar-open .menu-toggle {
+            background: var(--primary-gradient);
+            box-shadow: var(--shadow-elevation-3);
+        }
+
+        body.sidebar-open .menu-toggle span:nth-child(2) {
+            opacity: 0;
+        }
+
+        body.sidebar-open .menu-toggle span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .sidebar-overlay {
+            display: none;
         }
 
         .sidebar:hover {
@@ -922,33 +1017,93 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+
+            body.sidebar-open {
+                overflow: hidden;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
             .sidebar {
-                width: 70px;
+                width: 260px;
+                padding: 2.5rem 1.5rem;
+                align-items: flex-start;
+                transform: translateX(-100%);
             }
             
             .sidebar:hover {
-                width: 250px;
+                width: 260px;
+                box-shadow: var(--shadow-elevation-2);
             }
             
+            body.sidebar-open .sidebar {
+                transform: translateX(0);
+                box-shadow: var(--shadow-elevation-3);
+            }
+
+            .sidebar:not(:hover) .sidebar-header,
+            .sidebar .sidebar-header {
+                justify-content: flex-start;
+                padding: 0;
+                width: 100%;
+            }
+
+            .sidebar:not(:hover) .sidebar-header span,
+            .sidebar .sidebar-header span {
+                display: inline;
+            }
+
+            .sidebar:not(:hover) .nav-item,
+            .sidebar .nav-item {
+                width: 100%;
+                justify-content: flex-start;
+                height: auto;
+                padding: 1.1rem 1.5rem;
+                border-radius: 18px;
+            }
+
+            .sidebar:not(:hover) .nav-text,
+            .sidebar .nav-text {
+                display: inline;
+                opacity: 1;
+            }
+
+            .nav-items {
+                align-items: flex-start;
+                width: 100%;
+                margin-top: 1rem;
+                gap: 1rem;
+            }
+
             .main-content {
-                margin-left: 70px;
+                margin-left: 0;
+                padding: 0 1.5rem 4rem;
             }
             
             .hero {
                 grid-template-columns: 1fr;
-                padding: 3rem 2rem;
+                padding: 6rem 0 3rem;
                 text-align: center;
                 gap: 3rem;
             }
+
+            .hero-buttons {
+                justify-content: center;
+            }
             
             .hero-avatar {
-                width: 250px;
-                height: 250px;
+                width: 220px;
+                height: 220px;
                 font-size: 3rem;
             }
             
             .hero h1 {
-                font-size: 2.8rem;
+                font-size: 2.4rem;
             }
             
             .project-item {
@@ -965,7 +1120,7 @@
             }
             
             .project-image-container {
-                height: 250px;
+                height: 220px;
             }
             
             .contact-container {
@@ -976,7 +1131,7 @@
             .projects-section,
             .skills-section,
             .contact-section {
-                padding: 4rem 2rem;
+                padding: 4rem 0;
             }
             
             .filter-nav {
@@ -986,6 +1141,24 @@
             .filter-btn {
                 padding: 0.8rem 1.5rem;
                 font-size: 0.9rem;
+            }
+
+            .sidebar-overlay {
+                display: block;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.55);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+                z-index: 900;
+            }
+
+            body.sidebar-open .sidebar-overlay {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
             }
         }
 
@@ -1195,6 +1368,12 @@
             font-size: 1rem;
         }
 
+        footer .tech-tags {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
         footer .tech-tag {
             background: var(--surface);
             border: 1px solid rgba(102, 126, 234, 0.2);
@@ -1214,22 +1393,24 @@
         @media (max-width: 768px) {
             /* Sidebar responsive */
             .sidebar {
-                width: 70px;
+                width: 260px;
+                padding: 2.5rem 1.5rem;
             }
             
             .sidebar:hover {
-                width: 250px;
+                width: 260px;
             }
             
             /* Main content */
             .main-content {
-                margin-left: 70px;
+                margin-left: 0;
+                padding: 0 1.5rem 4rem;
             }
             
             /* Hero section mobile */
             .hero {
                 grid-template-columns: 1fr;
-                padding: 3rem 2rem;
+                padding: 6rem 0 3rem;
                 text-align: center;
                 gap: 3rem;
                 height: auto;
@@ -1237,21 +1418,21 @@
             }
             
             .hero-avatar {
-                width: 250px;
-                height: 250px;
+                width: 220px;
+                height: 220px;
                 font-size: 3rem;
             }
             
             .hero h1 {
-                font-size: 2.8rem;
+                font-size: 2.4rem;
             }
             
             .hero-subtitle {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
             
             .hero-description {
-                font-size: 1.1rem;
+                font-size: 1.05rem;
                 max-width: 100%;
             }
             
@@ -1264,7 +1445,7 @@
             .btn-primary,
             .btn-secondary {
                 width: 100%;
-                max-width: 300px;
+                max-width: 320px;
                 text-align: center;
             }
             
@@ -1284,7 +1465,7 @@
             }
             
             .project-image-container {
-                height: 250px;
+                height: 220px;
                 margin: 0;
             }
             
@@ -1328,7 +1509,7 @@
             .projects-section,
             .skills-section,
             .contact-section {
-                padding: 4rem 2rem;
+                padding: 4rem 0;
             }
             
             .projects-header h2 {
@@ -1388,7 +1569,7 @@
             
             /* Footer responsive */
             footer {
-                margin-left: 70px !important;
+                margin-left: 0 !important;
             }
             
             footer > div {
@@ -1400,6 +1581,11 @@
             footer .tech-stack {
                 flex-direction: column;
                 gap: 1rem;
+            }
+
+            footer .tech-tags {
+                justify-content: center;
+                flex-wrap: wrap;
             }
             
             /* Floating elements - Reduced on mobile */
@@ -1490,44 +1676,46 @@
         /* Extra small screens (480px and below) */
         @media (max-width: 480px) {
             .sidebar {
-                width: 60px;
+                width: 240px;
+                padding: 2rem 1.25rem;
             }
             
             .sidebar:hover {
-                width: 220px;
+                width: 240px;
             }
             
             .main-content {
-                margin-left: 60px;
+                margin-left: 0;
+                padding: 0 1.25rem 3rem;
             }
             
             .hero {
-                padding: 2rem 1rem;
-                gap: 2rem;
+                padding: 6rem 0 2.5rem;
+                gap: 2.5rem;
             }
             
             .hero-avatar {
-                width: 200px;
-                height: 200px;
-                font-size: 2.5rem;
+                width: 190px;
+                height: 190px;
+                font-size: 2.3rem;
             }
             
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
             
             .hero-subtitle {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             
             .hero-description {
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
             
             .projects-section,
             .skills-section,
             .contact-section {
-                padding: 3rem 1rem;
+                padding: 3rem 0;
             }
             
             .projects-header h2 {
@@ -1548,7 +1736,7 @@
             }
             
             .skill-card {
-                padding: 1.5rem;
+                padding: 1.4rem;
             }
             
             .contact-info h2 {
@@ -1566,13 +1754,27 @@
             }
             
             footer {
-                margin-left: 60px !important;
+                margin-left: 0 !important;
                 padding: 2rem 0;
             }
             
             footer .tech-stack {
-                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            footer .tech-tags {
                 justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .menu-toggle {
+                top: 1rem;
+                left: 1rem;
+                width: 44px;
+                height: 44px;
+                border-radius: 12px;
             }
         }
 
@@ -1640,8 +1842,19 @@
         <div class="floating-screen"></div>
     </div>
 
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <div class="sidebar-overlay" aria-hidden="true"></div>
+
     <!-- Sidebar Navigation -->
     <nav class="sidebar">
+        <div class="sidebar-header">
+            <img src="Images/logo.png" alt="Pau Badia logo">
+            <span>Pau Badia</span>
+        </div>
         <div class="nav-items">
             <a href="#home" class="nav-item">
                 <svg class="nav-icon" viewBox="0 0 24 24">
@@ -1896,17 +2109,17 @@
     </main>
 
     <!-- Footer -->
-    <footer style="background: rgba(0, 0, 0, 0.9); border-top: 1px solid rgba(132, 250, 176, 0.2); padding: 2rem 0; margin-left: 80px;">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-            <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
-                © Copyright <span style="color: #84fab0; font-weight: 600;">Pau Badia</span> 2025. All Rights Reserved
+    <footer>
+        <div>
+            <div class="copyright">
+                © Copyright <span>Pau Badia</span> 2025. All Rights Reserved
             </div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
+            <div class="tech-stack">
                 <span>Built with:</span>
-                <div style="display: flex; gap: 0.5rem; align-items: center;">
-                    <div style="background: rgba(132, 250, 176, 0.1); border: 1px solid rgba(132, 250, 176, 0.3); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.8rem; color: #84fab0;">HTML5</div>
-                    <div style="background: rgba(132, 250, 176, 0.1); border: 1px solid rgba(132, 250, 176, 0.3); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.8rem; color: #84fab0;">CSS3</div>
-                    <div style="background: rgba(132, 250, 176, 0.1); border: 1px solid rgba(132, 250, 176, 0.3); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.8rem; color: #84fab0;">JavaScript</div>
+                <div class="tech-tags">
+                    <div class="tech-tag">HTML5</div>
+                    <div class="tech-tag">CSS3</div>
+                    <div class="tech-tag">JavaScript</div>
                 </div>
             </div>
         </div>
@@ -2157,6 +2370,52 @@
             setTimeout(typeWriter, 1000);
         }
 
+        // Toggle de la barra lateral en móviles
+        function initSidebarToggle() {
+            const body = document.body;
+            const toggleButton = document.querySelector('.menu-toggle');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const navItems = document.querySelectorAll('.nav-item');
+
+            const toggleSidebar = (force) => {
+                const shouldOpen = typeof force === 'boolean' ? force : !body.classList.contains('sidebar-open');
+                body.classList.toggle('sidebar-open', shouldOpen);
+                if (toggleButton) {
+                    toggleButton.setAttribute('aria-expanded', shouldOpen);
+                }
+            };
+
+            if (toggleButton) {
+                toggleButton.addEventListener('click', () => toggleSidebar());
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', () => toggleSidebar(false));
+            }
+
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        toggleSidebar(false);
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    toggleSidebar(false);
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && body.classList.contains('sidebar-open')) {
+                    toggleSidebar(false);
+                }
+            });
+
+            toggleSidebar(false);
+        }
+
         // Animaciones de hover para proyectos - Actualizado
         function initProjectAnimations() {
             const projectItems = document.querySelectorAll('.project-item');
@@ -2209,6 +2468,7 @@
             initParallax();
             highlightActiveSection();
             initTypingEffect();
+            initSidebarToggle();
             initProjectAnimations();
             
             // Animación inicial escalonada
