@@ -14,21 +14,22 @@
         }
 
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+            /* New theme: teal & coral on deep navy */
+            --primary-gradient: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%);
+            --secondary-gradient: linear-gradient(135deg, #fb7185 0%, #f97316 100%);
+            --accent-gradient: linear-gradient(135deg, #22c55e 0%, #84cc16 100%);
+            --success-gradient: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            --dark-gradient: linear-gradient(135deg, #0b1220 0%, #0f172a 100%);
             --surface: rgba(255, 255, 255, 0.08);
             --surface-hover: rgba(255, 255, 255, 0.12);
             --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-secondary: rgba(255, 255, 255, 0.74);
             --shadow-elevation-1: 0 4px 12px rgba(0, 0, 0, 0.15);
             --shadow-elevation-2: 0 8px 32px rgba(0, 0, 0, 0.24);
             --shadow-elevation-3: 0 16px 64px rgba(0, 0, 0, 0.35);
-            --shadow-color-primary: 0 8px 32px rgba(102, 126, 234, 0.3);
-            --shadow-color-secondary: 0 8px 32px rgba(240, 147, 251, 0.3);
-            --shadow-color-accent: 0 8px 32px rgba(79, 172, 254, 0.3);
+            --shadow-color-primary: 0 8px 32px rgba(6, 182, 212, 0.3);
+            --shadow-color-secondary: 0 8px 32px rgba(251, 113, 133, 0.3);
+            --shadow-color-accent: 0 8px 32px rgba(34, 197, 94, 0.3);
         }
 
         body {
@@ -53,8 +54,8 @@
 
         .floating-screen {
             position: absolute;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(79, 172, 254, 0.1));
-            border: 1px solid rgba(102, 126, 234, 0.2);
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(14, 165, 233, 0.12));
+            border: 1px solid rgba(6, 182, 212, 0.22);
             border-radius: 20px;
             backdrop-filter: blur(20px);
             box-shadow: var(--shadow-elevation-2);
@@ -89,8 +90,8 @@
             top: 60%;
             left: 5%;
             animation-delay: 2s;
-            background: linear-gradient(135deg, rgba(240, 147, 251, 0.1), rgba(245, 87, 108, 0.1));
-            border-color: rgba(240, 147, 251, 0.2);
+            background: linear-gradient(135deg, rgba(251, 113, 133, 0.12), rgba(249, 115, 22, 0.12));
+            border-color: rgba(251, 113, 133, 0.22);
         }
 
         .floating-screen:nth-child(3) {
@@ -99,8 +100,8 @@
             top: 30%;
             left: 10%;
             animation-delay: 4s;
-            background: linear-gradient(135deg, rgba(67, 233, 123, 0.1), rgba(56, 249, 215, 0.1));
-            border-color: rgba(67, 233, 123, 0.2);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(132, 204, 22, 0.12));
+            border-color: rgba(34, 197, 94, 0.22);
         }
 
         .floating-screen:nth-child(4) {
@@ -109,8 +110,8 @@
             bottom: 20%;
             right: 10%;
             animation-delay: 1s;
-            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(0, 242, 254, 0.1));
-            border-color: rgba(79, 172, 254, 0.2);
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(14, 165, 233, 0.12));
+            border-color: rgba(14, 165, 233, 0.22);
         }
 
         @keyframes float {
@@ -135,9 +136,9 @@
             top: 0;
             width: 90px;
             height: 100vh;
-            background: rgba(12, 12, 12, 0.95);
+            background: rgba(11, 18, 32, 0.95);
             backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(102, 126, 234, 0.2);
+            border-right: 1px solid rgba(6, 182, 212, 0.22);
             box-shadow: var(--shadow-elevation-2);
             z-index: 1000;
             display: flex;
@@ -341,7 +342,7 @@
             grid-template-columns: 1fr 1fr;
             align-items: center;
             padding: 0 5rem;
-            background: radial-gradient(ellipse at center, rgba(102, 126, 234, 0.15) 0%, rgba(12, 12, 12, 1) 70%);
+            background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.18) 0%, rgba(11, 18, 32, 1) 70%);
             gap: 5rem;
             position: relative;
             overflow: hidden;
@@ -354,7 +355,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(102,126,234,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(6,182,212,0.12)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
             z-index: -1;
         }
 
@@ -384,7 +385,7 @@
             position: relative;
             box-shadow: var(--shadow-elevation-3), var(--shadow-color-primary);
             animation: heroFloat 4s ease-in-out infinite;
-            border: 4px solid rgba(255, 255, 255, 0.1);
+            border: 4px solid rgba(6, 182, 212, 0.25);
         }
 
         .hero-avatar::before {
@@ -428,6 +429,8 @@
             font-weight: 900;
             margin-bottom: 1.5rem;
             background: var(--primary-gradient);
+            background-clip: text;
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -560,6 +563,7 @@
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
             background: var(--primary-gradient);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.3));
@@ -719,6 +723,7 @@
             font-size: 2rem;
             margin-bottom: 1.5rem;
             background: var(--primary-gradient);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -895,6 +900,7 @@
             font-size: 1.5rem;
             margin-bottom: 1rem;
             background: var(--secondary-gradient);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -925,6 +931,7 @@
             font-size: 3rem;
             margin-bottom: 2rem;
             background: var(--success-gradient);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 4px 8px rgba(67, 233, 123, 0.3));
