@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Miner World - Project Details | Pau Badia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --mining-gradient: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+            --surface: rgba(255, 255, 255, 0.08);
+            --surface-hover: rgba(255, 255, 255, 0.12);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --shadow-elevation-1: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-elevation-2: 0 8px 32px rgba(0, 0, 0, 0.24);
+            --shadow-elevation-3: 0 16px 64px rgba(0, 0, 0, 0.35);
+            --shadow-color-primary: 0 8px 32px rgba(102, 126, 234, 0.3);
+            --shadow-mining: 0 8px 32px rgba(247, 151, 30, 0.3);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--dark-gradient);
+            color: var(--text-primary);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed; left: 0; top: 0;
+            width: 90px; height: 100vh;
+            background: rgba(12, 12, 12, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(102, 126, 234, 0.2);
+            box-shadow: var(--shadow-elevation-2);
+            z-index: 1000;
+            display: flex; flex-direction: column;
+            align-items: center; padding: 2rem 0;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .sidebar:hover { width: 280px; box-shadow: var(--shadow-elevation-3); }
+        .nav-items { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; width: 100%; margin-top: 2rem; }
+        .nav-item {
+            display: flex; align-items: center; gap: 1.5rem;
+            color: var(--text-secondary); text-decoration: none;
+            padding: 1.2rem; border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 90%; justify-content: center; position: relative;
+            min-height: 56px; background: var(--surface);
+            backdrop-filter: blur(10px); box-shadow: var(--shadow-elevation-1);
+        }
+        .sidebar:not(:hover) .nav-item { justify-content: center; align-items: center; width: 60px; height: 60px; border-radius: 50%; padding: 0; min-height: 60px; }
+        .sidebar:not(:hover) .nav-text { display: none; }
+        .sidebar:hover .nav-item { justify-content: flex-start; padding-left: 2rem; }
+        .nav-item:hover { background: var(--surface-hover); color: #ffffff; transform: translateX(8px) translateY(-2px); box-shadow: var(--shadow-color-primary); }
+        .nav-icon { width: 28px; height: 28px; fill: currentColor; flex-shrink: 0; }
+        .nav-text { opacity: 0; transition: all 0.3s ease; white-space: nowrap; font-weight: 600; letter-spacing: 0.5px; }
+        .sidebar:hover .nav-text { opacity: 1; }
+
+        /* Main */
+        .main-content { margin-left: 90px; min-height: 100vh; position: relative; z-index: 2; }
+
+        /* Hero */
+        .project-hero {
+            min-height: 80vh; padding: 5rem 2rem 4rem;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            background: radial-gradient(ellipse at center, rgba(247, 151, 30, 0.12) 0%, rgba(12, 12, 12, 1) 70%);
+            position: relative; overflow: hidden;
+        }
+        .project-hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(247,151,30,0.08)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            z-index: -1;
+        }
+        .project-hero h1 {
+            font-family: 'Orbitron', monospace; font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900; margin-bottom: 1.5rem;
+            background: var(--mining-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            filter: drop-shadow(0 4px 12px rgba(247, 151, 30, 0.4));
+        }
+        .project-hero-subtitle { font-size: clamp(1rem, 2.5vw, 1.4rem); color: var(--text-secondary); margin-bottom: 2rem; font-weight: 600; }
+
+        .hero-capsule-img {
+            width: 320px; max-width: 90%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-elevation-3), var(--shadow-mining);
+            margin: 2rem auto;
+            border: 1px solid rgba(247, 151, 30, 0.3);
+            transition: transform 0.4s ease;
+        }
+        .hero-capsule-img:hover { transform: scale(1.04); }
+
+        .hero-video-container {
+            position: relative;
+            width: 70%;
+            max-width: 700px;
+            margin: 2rem auto 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-elevation-3), var(--shadow-mining);
+            border: 1px solid rgba(247, 151, 30, 0.3);
+            aspect-ratio: 16 / 9;
+        }
+        .hero-video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+
+        .project-tags { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
+        .tag {
+            background: var(--surface-hover); color: #ffffff;
+            padding: 0.7rem 1.4rem; border-radius: 25px;
+            font-size: 0.95rem; font-weight: 600;
+            border: 1px solid rgba(247, 151, 30, 0.25);
+            box-shadow: var(--shadow-elevation-1);
+        }
+
+        /* Overview */
+        .enhanced-overview { max-width: 1200px; margin: 0 auto; padding: 4rem 3rem; }
+
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1.5rem;
+            background: var(--mining-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            filter: drop-shadow(0 4px 8px rgba(247, 151, 30, 0.3)); position: relative;
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 4px; background: var(--mining-gradient); border-radius: 2px;
+        }
+        .section-subtitle { font-size: clamp(1rem, 2.5vw, 1.2rem); color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+        /* Cards */
+        .overview-card {
+            background: var(--surface);
+            border: 1px solid rgba(247, 151, 30, 0.2);
+            border-radius: 25px; padding: 3rem;
+            backdrop-filter: blur(20px); box-shadow: var(--shadow-elevation-2);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative; overflow: hidden;
+        }
+        .overview-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--mining-gradient); }
+        .overview-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-elevation-3), var(--shadow-mining); background: var(--surface-hover); }
+
+        .card-title { font-family: 'Orbitron', monospace; font-size: clamp(1.2rem, 3vw, 1.7rem); margin-bottom: 1.5rem; color: var(--text-primary); }
+        .card-text { font-size: clamp(1rem, 2vw, 1.15rem); line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem; }
+
+        /* Features grid */
+        .role-section { margin-top: 2rem; }
+        .role-title { font-family: 'Orbitron', monospace; font-size: clamp(1rem, 2.5vw, 1.4rem); color: var(--text-primary); margin-bottom: 2rem; text-align: center; position: relative; }
+        .role-title::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 60px; height: 2px; background: var(--mining-gradient); border-radius: 1px; }
+        .role-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .role-item {
+            background: rgba(247, 151, 30, 0.05);
+            border: 1px solid rgba(247, 151, 30, 0.2);
+            border-radius: 20px; padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        .role-item:hover { background: rgba(247, 151, 30, 0.1); transform: translateY(-4px); box-shadow: var(--shadow-mining); }
+        .role-item-title { font-family: 'Orbitron', monospace; font-size: clamp(0.9rem, 1.8vw, 1.1rem); color: var(--text-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem; }
+        .role-emoji { font-size: 1.4rem; }
+        .role-description { color: var(--text-secondary); line-height: 1.6; font-size: clamp(0.85rem, 1.6vw, 0.98rem); }
+
+        /* Challenges */
+        .challenges-section { margin-top: 4rem; }
+        .challenges-title {
+            font-family: 'Orbitron', monospace; font-size: clamp(1.5rem, 4vw, 2.5rem);
+            text-align: center; margin-bottom: 3rem;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            position: relative;
+        }
+        .challenges-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--secondary-gradient); border-radius: 2px; }
+        .challenges-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
+        .challenge-card {
+            background: var(--surface);
+            border: 1px solid rgba(240, 147, 251, 0.2);
+            border-radius: 25px; padding: 2.5rem;
+            backdrop-filter: blur(20px); box-shadow: var(--shadow-elevation-2);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative; overflow: hidden;
+        }
+        .challenge-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--secondary-gradient); }
+        .challenge-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: var(--shadow-elevation-3), 0 8px 32px rgba(240, 147, 251, 0.3); background: var(--surface-hover); }
+        .challenge-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .challenge-emoji { font-size: 2.2rem; transition: transform 0.3s ease; }
+        .challenge-card:hover .challenge-emoji { transform: scale(1.2) rotate(10deg); }
+        .challenge-info { flex: 1; }
+        .challenge-title { font-family: 'Orbitron', monospace; font-size: clamp(0.95rem, 2vw, 1.2rem); color: var(--text-primary); margin-bottom: 0.4rem; }
+        .challenge-type { font-size: 0.85rem; color: rgba(240, 147, 251, 0.8); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .challenge-problem { background: rgba(255, 87, 108, 0.1); border: 1px solid rgba(255, 87, 108, 0.2); border-radius: 15px; padding: 1.4rem; margin-bottom: 1.2rem; }
+        .challenge-problem-title { font-size: 1rem; font-weight: 600; color: #ff576c; margin-bottom: 0.7rem; }
+        .challenge-solution { background: rgba(67, 233, 123, 0.1); border: 1px solid rgba(67, 233, 123, 0.2); border-radius: 15px; padding: 1.4rem; }
+        .challenge-solution-title { font-size: 1rem; font-weight: 600; color: #43e97b; margin-bottom: 0.7rem; }
+        .challenge-text { color: var(--text-secondary); line-height: 1.6; font-size: clamp(0.88rem, 1.7vw, 0.98rem); }
+
+        /* Nav footer */
+        .project-nav { background: var(--surface); border-top: 1px solid rgba(247, 151, 30, 0.2); padding: 2rem 0; margin-top: 4rem; backdrop-filter: blur(20px); }
+        .nav-buttons { max-width: 1200px; margin: 0 auto; padding: 0 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
+        .btn-primary {
+            padding: 1.1rem 2.2rem;
+            background: var(--mining-gradient); color: #ffffff;
+            text-decoration: none; border-radius: 50px;
+            font-weight: 700; font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: none; cursor: pointer;
+            box-shadow: var(--shadow-mining);
+            display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+        .btn-primary:hover { transform: translateY(-4px) scale(1.05); box-shadow: var(--shadow-elevation-3), var(--shadow-mining); }
+
+        .btn-steam {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 2rem;
+            padding: 1rem 2.2rem;
+            background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%);
+            color: #c7d5e0;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.4px;
+            border: 1px solid rgba(199, 213, 224, 0.25);
+            box-shadow: 0 8px 32px rgba(27, 40, 56, 0.6);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .btn-steam:hover {
+            transform: translateY(-4px) scale(1.05);
+            background: linear-gradient(135deg, #2a475e 0%, #1b2838 100%);
+            color: #ffffff;
+            box-shadow: 0 16px 48px rgba(27, 40, 56, 0.8), 0 0 20px rgba(199, 213, 224, 0.15);
+        }
+        .btn-steam svg { flex-shrink: 0; }
+
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .slide-in-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .slide-in-left.visible { opacity: 1; transform: translateX(0); }
+        .slide-in-right { opacity: 0; transform: translateX(50px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .slide-in-right.visible { opacity: 1; transform: translateX(0); }
+
+        /* Modal */
+        .image-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(20px); }
+        .image-modal img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 20px; box-shadow: var(--shadow-elevation-3); }
+        .close-modal { position: absolute; top: 2rem; right: 2rem; background: var(--surface); border: 1px solid rgba(247,151,30,0.3); color: #fff; font-size: 2rem; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(20px); }
+        .close-modal:hover { background: var(--surface-hover); transform: scale(1.1); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { width: 70px; }
+            .sidebar:hover { width: 240px; }
+            .main-content { margin-left: 70px; }
+            .project-hero h1 { font-size: 2.2rem; }
+            .enhanced-overview { padding: 3rem 1.5rem; }
+            .overview-card { padding: 2rem; }
+            .role-grid { grid-template-columns: 1fr; }
+            .challenges-grid { grid-template-columns: 1fr; }
+            .challenge-card { padding: 2rem; }
+            .nav-buttons { flex-direction: column; text-align: center; }
+            .hero-capsule-img { width: 260px; }
+            .hero-video-container { width: 95%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="nav-items">
+            <a href="../index.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                <span class="nav-text">Home</span>
+            </a>
+            <a href="../index.html#projects" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                </svg>
+                <span class="nav-text">Projects</span>
+            </a>
+            <a href="../index.html#contact" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <path d="M2 6l10 7L22 6"/>
+                </svg>
+                <span class="nav-text">Contact</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+
+        <!-- Hero -->
+        <section class="project-hero fade-in">
+            <h1>Little Miner World</h1>
+            <p class="project-hero-subtitle">3D Mining RPG with Procedural Voxel Terrain · Unity</p>
+
+            <div class="hero-video-container">
+                <iframe src="https://www.youtube.com/embed/Q86g1nUxQ68?si=ntyKiVsnyCWBcqqK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <a href="https://store.steampowered.com/app/4643720/LITTLE_MINER_WORLD/" class="btn-steam" target="_blank" rel="noopener noreferrer">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.029 4.524 4.524s-2.03 4.523-4.524 4.523h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.624 0 11.979-5.355 11.979-11.979C23.958 5.355 18.603 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.455 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.252 0-2.265-1.014-2.265-2.265z"/>
+                </svg>
+                View on Steam
+            </a>
+
+            <div class="project-tags">
+                <span class="tag">Unity</span>
+                <span class="tag">C#</span>
+                <span class="tag">Marching Cubes</span>
+                <span class="tag">Procedural Generation</span>
+                <span class="tag">RPG Systems</span>
+            </div>
+        </section>
+
+        <!-- Overview -->
+        <section class="enhanced-overview">
+
+            <div class="section-header fade-in">
+                <h2 class="section-title">Project Overview</h2>
+                <p class="section-subtitle">
+                    A fully featured 3D mining RPG built from scratch in Unity, where players dig through a procedurally generated voxel world, collect minerals, upgrade tools, and interact with NPCs.
+                </p>
+            </div>
+
+            <div style="margin-top: 3rem;">
+                <div class="overview-card fade-in">
+                    <h3 class="card-title">⛏️ Concept & Vision</h3>
+                    <p class="card-text">
+                        Little Miner World is a 3D voxel mining RPG where the player explores and excavates a fully destructible terrain generated using the <strong>Marching Cubes</strong> algorithm. The game revolves around collecting minerals, managing an inventory, completing missions, and progressing through NPC-driven dialogue and a shop upgrade system.
+                    </p>
+                    <p class="card-text">
+                        Every system in the game was built from the ground up in Unity with C#, from the voxel terrain mesh generation to the UI widgets for the mineral codex, the in-game shop, and the cinematic triggers.
+                    </p>
+
+                    <div class="role-section">
+                        <h4 class="role-title">Key Systems & Features</h4>
+                        <div class="role-grid">
+
+                            <div class="role-item slide-in-left">
+                                <div class="role-item-title"><span class="role-emoji">🌍</span> Marching Cubes Terrain</div>
+                                <p class="role-description">Procedurally generated destructible 3D voxel terrain using a custom Marching Cubes implementation. The mesh updates in real time as the player mines.</p>
+                            </div>
+
+                            <div class="role-item slide-in-right">
+                                <div class="role-item-title"><span class="role-emoji">⛏️</span> Pickaxe Mining System</div>
+                                <p class="role-description">Physics-based pickaxe tip detection that registers hits on the voxel terrain, triggers particle effects, and drops item pickups based on the mineral type struck.</p>
+                            </div>
+
+                            <div class="role-item slide-in-left">
+                                <div class="role-item-title"><span class="role-emoji">🎒</span> Inventory & Pick-Up System</div>
+                                <p class="role-description">3D item pickup objects in the world that the player can collect into a unified inventory. Supports stackable materials and integrates with the shop and mission systems.</p>
+                            </div>
+
+                            <div class="role-item slide-in-right">
+                                <div class="role-item-title"><span class="role-emoji">📖</span> Mineral Codex</div>
+                                <p class="role-description">An in-game encyclopedia that unlocks entries as the player discovers new minerals. Includes an animated unlock banner and per-entry widgets showing mineral details.</p>
+                            </div>
+
+                            <div class="role-item slide-in-left">
+                                <div class="role-item-title"><span class="role-emoji">🛒</span> Tool Shop & Upgrades</div>
+                                <p class="role-description">A fully functional in-game shop where players spend collected materials to upgrade their pickaxe. Shop items display stats, requirements, and upgrade card animations.</p>
+                            </div>
+
+                            <div class="role-item slide-in-right">
+                                <div class="role-item-title"><span class="role-emoji">💬</span> NPC Dialogue System</div>
+                                <p class="role-description">Conversation system with scriptable objects for dialogue, conversation effects, and conversation end triggers. Uses Text Animator for animated text display.</p>
+                            </div>
+
+                            <div class="role-item slide-in-left">
+                                <div class="role-item-title"><span class="role-emoji">🎯</span> Mission System</div>
+                                <p class="role-description">Active mission panel that tracks and displays current objectives. Missions are driven by scriptable objects and update dynamically as the player progresses.</p>
+                            </div>
+
+                            <div class="role-item slide-in-right">
+                                <div class="role-item-title"><span class="role-emoji">🎬</span> Cinematics & Save System</div>
+                                <p class="role-description">Cinematic trigger sequences for key story moments, and a persistent save system that stores player progress, inventory, and discovered minerals across sessions.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Challenges -->
+            <div class="challenges-section">
+                <h3 class="challenges-title">Technical Challenges & Solutions</h3>
+                <div class="challenges-grid">
+
+                    <div class="challenge-card fade-in">
+                        <div class="challenge-header">
+                            <span class="challenge-emoji">🌍</span>
+                            <div class="challenge-info">
+                                <h4 class="challenge-title">Real-Time Voxel Mesh Updates</h4>
+                                <div class="challenge-type">Procedural Generation</div>
+                            </div>
+                        </div>
+                        <div class="challenge-problem">
+                            <div class="challenge-problem-title">⚠ Challenge</div>
+                            <p class="challenge-text">Regenerating the Marching Cubes mesh every time the player mines caused visible frame hitches and made the interaction feel unresponsive.</p>
+                        </div>
+                        <div class="challenge-solution">
+                            <div class="challenge-solution-title">✅ Solution</div>
+                            <p class="challenge-text">Implemented chunk-based terrain so only the affected chunk remeshes. Dirty flags track which chunks need updating, keeping unnecessary recalculations to zero.</p>
+                        </div>
+                    </div>
+
+                    <div class="challenge-card fade-in">
+                        <div class="challenge-header">
+                            <span class="challenge-emoji">⛏️</span>
+                            <div class="challenge-info">
+                                <h4 class="challenge-title">Accurate Pickaxe Hit Detection</h4>
+                                <div class="challenge-type">Physics & Interaction</div>
+                            </div>
+                        </div>
+                        <div class="challenge-problem">
+                            <div class="challenge-problem-title">⚠ Challenge</div>
+                            <p class="challenge-text">Using standard collision detection on a dynamic mesh produced false positives and missed hits depending on swing angle and player speed.</p>
+                        </div>
+                        <div class="challenge-solution">
+                            <div class="challenge-solution-title">✅ Solution</div>
+                            <p class="challenge-text">Created a dedicated PickaxeTip component that casts a short sphere overlap each frame during the swing animation window, identifying the closest voxel position with precision.</p>
+                        </div>
+                    </div>
+
+                    <div class="challenge-card fade-in">
+                        <div class="challenge-header">
+                            <span class="challenge-emoji">📖</span>
+                            <div class="challenge-info">
+                                <h4 class="challenge-title">Codex Unlock State Persistence</h4>
+                                <div class="challenge-type">Data & Save System</div>
+                            </div>
+                        </div>
+                        <div class="challenge-problem">
+                            <div class="challenge-problem-title">⚠ Challenge</div>
+                            <p class="challenge-text">The Mineral Codex needed to remember which entries were unlocked across play sessions without tying the data to scene objects that might be destroyed.</p>
+                        </div>
+                        <div class="challenge-solution">
+                            <div class="challenge-solution-title">✅ Solution</div>
+                            <p class="challenge-text">Utilized a ScriptableObject-based data model for the codex entries, with each entry's state (locked/unlocked) saved in the player prefs. Loaded and applied at runtime to update the UI.</p>
+                        </div>
+                    </div>
+
+                    <div class="challenge-card fade-in">
+                        <div class="challenge-header">
+                            <span class="challenge-emoji">🛒</span>
+                            <div class="challenge-info">
+                                <h4 class="challenge-title">Dynamic Shop Inventory</h4>
+                                <div class="challenge-type">UI & Inventory Systems</div>
+                            </div>
+                        </div>
+                        <div class="challenge-problem">
+                            <div class="challenge-problem-title">⚠ Challenge</div>
+                            <p class="challenge-text">The shop inventory needed to update dynamically based on player progress and be independent of scene objects to avoid data loss on scene reloads.</p>
+                        </div>
+                        <div class="challenge-solution">
+                            <div class="challenge-solution-title">✅ Solution</div>
+                            <p class="challenge-text">Implemented a data-driven shop system where the inventory is defined by scriptable objects. The shop UI reads from these objects directly, allowing for dynamic updates without scene dependency.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Nav footer -->
+        <footer class="project-nav">
+            <div class="nav-buttons fade-in">
+                <a href="../index.html#projects" class="btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10 5.52 0 10-4.48 10-10S17.52 2 12 2zm67.5 17.5l-5 5-15-15 15-15 5 5-10 10 10 10z"/>
+                    </svg>
+                    Back to Projects
+                </a>
+                <a href="https://store.steampowered.com/app/4643720/LITTLE_MINER_WORLD/" class="btn-steam" target="_blank" rel="noopener noreferrer">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.029 4.524 4.524s-2.03 4.523-4.524 4.523h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.624 0 11.979-5.355 11.979-11.979C23.958 5.355 18.603 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.455 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.252 0-2.265-1.014-2.265-2.265z"/>
+                    </svg>
+                    View on Steam
+                </a>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Modal -->
+    <div class="image-modal" id="imageModal">
+        <img src="" alt="Modal Image" id="modalImage">
+        <div class="close-modal" id="closeModal">&times;</div>
+    </div>
+
+    <script>
+        // Intersection Observer para animaciones
+        function observeElements() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+            document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => observer.observe(el));
+        }
+
+        // Modal
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('click', e => {
+            const modal = document.getElementById('imageModal');
+            if (e.target === modal) closeImageModal();
+        });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeImageModal(); });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            observeElements();
+
+            // Trigger visible on elements already in viewport
+            document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach((el, i) => {
+                if (el.getBoundingClientRect().top < window.innerHeight) {
+                    setTimeout(() => el.classList.add('visible'), i * 80);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

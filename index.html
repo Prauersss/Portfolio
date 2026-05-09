@@ -1417,6 +1417,12 @@
                 min-height: 100vh;
             }
             
+            .hero-buttons {
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+            }
+            
             .hero-avatar {
                 width: 220px;
                 height: 220px;
@@ -1434,12 +1440,6 @@
             .hero-description {
                 font-size: 1.05rem;
                 max-width: 100%;
-            }
-            
-            .hero-buttons {
-                justify-content: center;
-                flex-direction: column;
-                align-items: center;
             }
             
             .btn-primary,
@@ -1768,14 +1768,6 @@
                 justify-content: center;
                 flex-wrap: wrap;
             }
-            
-            .menu-toggle {
-                top: 1rem;
-                left: 1rem;
-                width: 44px;
-                height: 44px;
-                border-radius: 12px;
-            }
         }
 
         /* High DPI displays */
@@ -1917,14 +1909,63 @@
 
             <div class="filter-nav fade-in">
                 <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="unity">Unity</button>
                 <button class="filter-btn" data-filter="unreal">Unreal Engine</button>
                 <button class="filter-btn" data-filter="graphics">Graphics Programming</button>
                 <button class="filter-btn" data-filter="others">AI & Others</button>
             </div>
 
             <div class="projects-container">
-                <!-- Proyecto 1 - Elysian Siege (Proyecto destacado) -->
-                <div class="project-item featured slide-in-left" data-category="unreal">
+                <!-- Proyecto 1 - Little Miner World -->
+                <div class="project-item featured slide-in-left" data-category="unity">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div class="project-info">
+                                <h3>Little Miner World</h3>
+                                <p>A 3D mining RPG built in Unity featuring procedural voxel terrain generated with Marching Cubes, a full pickaxe mining mechanic, mineral codex, shop upgrades, NPC dialogue, and mission systems.</p>
+                                <div class="project-tags">
+                                    <span class="tag">Unity</span>
+                                    <span class="tag">C#</span>
+                                    <span class="tag">Marching Cubes</span>
+                                    <span class="tag">Procedural Generation</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <span>⛏️</span>
+                                <span>Mining RPG</span>
+                            </div>
+                            <div class="stat">
+                                <span>🌍</span>
+                                <span>Procedural World</span>
+                            </div>
+                            <div class="stat">
+                                <span>🎮</span>
+                                <span>Unity 3D</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-image-container">
+                        <img src="Images/Capsule.png" alt="Little Miner World" class="project-image">
+                        <div class="project-overlay">
+                            <button class="view-project-btn" onclick="viewProjectDetails('Little-Miner-World')">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto 2 - Elysian Siege (Proyecto destacado) -->
+                <div class="project-item featured slide-in-right" data-category="unreal">
+                    <div class="project-image-container">
+                        <img src="Images/Elysian_Siege.png" alt="Elysian Siege" class="project-image">
+                        <div class="project-overlay">
+                            <button class="view-project-btn" onclick="viewProjectDetails('elysian-siege')">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
                     <div class="project-content">
                         <div class="project-header">
                             <div class="project-info">
@@ -1953,26 +1994,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="project-image-container">
-                        <img src="Images/Elysian_Siege.png" alt="Elysian Siege" class="project-image">
-                        <div class="project-overlay">
-                            <button class="view-project-btn" onclick="viewProjectDetails('elysian-siege')">
-                                View Details
-                            </button>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Proyecto 2 - OPEngine -->
-                <div class="project-item slide-in-right" data-category="graphics">
-                    <div class="project-image-container">
-                        <img src="Images/OPEngine.png" alt="OPEngine" class="project-image">
-                        <div class="project-overlay">
-                            <button class="view-project-btn" onclick="viewProjectDetails('opengine')">
-                                View Details
-                            </button>
-                        </div>
-                    </div>
+                <!-- Proyecto 3 - OPEngine -->
+                <div class="project-item slide-in-left" data-category="graphics">
                     <div class="project-content">
                         <div class="project-header">
                             <div class="project-info">
@@ -1997,10 +2022,26 @@
                             </div>
                         </div>
                     </div>
+                    <div class="project-image-container">
+                        <img src="Images/OPEngine.png" alt="OPEngine" class="project-image">
+                        <div class="project-overlay">
+                            <button class="view-project-btn" onclick="viewProjectDetails('opengine')">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Proyecto 3 - Snake NEAT AI -->
-                <div class="project-item slide-in-left" data-category="others">
+                <!-- Proyecto 4 - Snake NEAT AI -->
+                <div class="project-item slide-in-right" data-category="others">
+                    <div class="project-image-container">
+                        <img src="Images/Snake_NEAT.png" alt="Snake NEAT AI" class="project-image">
+                        <div class="project-overlay">
+                            <button class="view-project-btn" onclick="viewProjectDetails('snake-neat')">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
                     <div class="project-content">
                         <div class="project-header">
                             <div class="project-info">
@@ -2023,14 +2064,6 @@
                                 <span>🐍</span>
                                 <span>Game AI</span>
                             </div>
-                        </div>
-                    </div>
-                    <div class="project-image-container">
-                        <img src="Images/Snake_NEAT.png" alt="Snake NEAT AI" class="project-image">
-                        <div class="project-overlay">
-                            <button class="view-project-btn" onclick="viewProjectDetails('snake-neat')">
-                                View Details
-                            </button>
                         </div>
                     </div>
                 </div>
