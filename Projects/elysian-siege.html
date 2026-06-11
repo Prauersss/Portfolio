@@ -823,7 +823,7 @@
         <!-- Hero Section -->
         <section class="project-hero fade-in">
             <h1>Elysian Siege: The Prince's Uprising</h1>
-            <p class="project-hero-subtitle">Epic Action-Adventure Game Development</p>
+            <p class="project-hero-subtitle">Action-Adventure Game · HND Final Project · Unreal Engine 5</p>
             <div class="project-tags">
                 <span class="tag">Unreal Engine 5</span>
                 <span class="tag">C++</span>
@@ -854,9 +854,9 @@
         <section class="enhanced-overview">
             <!-- Project Overview Header -->
             <div class="section-header fade-in">
-                <h2 class="section-title">Project Overview</h2>
+                <h2 class="section-title">About the Project</h2>
                 <p class="section-subtitle">
-                    A comprehensive look at the development process and challenges faced during the creation of Elysian Siege
+                    What the game is, which parts I built, and what went wrong along the way
                 </p>
             </div>
 
@@ -864,16 +864,15 @@
                 <!-- Main Overview Card -->
                 <div class="overview-card fade-in">
                     <h3 class="card-title">
-                        
-                        Game Concept & Vision
+                        The Game
                     </h3>
                     <p class="card-text">
-                        This project was developed collaboratively by a dedicated team. The game revolves around a central protagonist who must reach her ultimate objective by overcoming a series of challenges. To do so, she relies on a variety of carefully designed mechanics that shape the player's experience and progression. Each mechanic was created to reinforce the gameplay loop and to make the journey engaging, rewarding, and thematically consistent.
+                        Elysian Siege was our final project for the HND, built by a small team over nine months. You play a protagonist fighting her way towards her objective, picking up abilities and items that change how you approach each encounter. Since it was a team project we each owned different systems — the sections below cover the parts that were mine.
                     </p>
 
                     <!-- My Role Section -->
                     <div class="role-section">
-                        <h4 class="role-title">My Contributions to the Project</h4>
+                        <h4 class="role-title">What I Worked On</h4>
                         <div class="role-grid">
                             <div class="role-item slide-in-left">
                                 <h5 class="role-item-title">
@@ -881,7 +880,7 @@
                                     Enemy AI & Combat
                                 </h5>
                                 <p class="role-description">
-                                    Implemented ranged enemy behavior and mechanics, including player detection, shooting decisions, and environmental interactions. Balanced aggressiveness to create engaging combat encounters.
+                                    I built the ranged enemies: detecting the player, deciding when to shoot, and reacting to the environment. A lot of the work was tuning how aggressive they are so fights feel tense without being unfair.
                                 </p>
                             </div>
 
@@ -891,7 +890,7 @@
                                     Audio Integration
                                 </h5>
                                 <p class="role-description">
-                                    Handled complete audio implementation across menus and gameplay, including background music, sound effects, and feedback sounds to enhance player immersion and interaction.
+                                    I handled all the audio, in menus and in gameplay: background music, sound effects, and the little feedback sounds that tell you something happened.
                                 </p>
                             </div>
 
@@ -901,7 +900,7 @@
                                     Visual Effects
                                 </h5>
                                 <p class="role-description">
-                                    Created and integrated particle systems for explosion effects, NPC defeats, and pickup interactions. Designed to make interactions more dynamic and visually satisfying.
+                                    I made the particle effects for explosions, enemy deaths and pickups — the kind of detail that makes hitting things feel good.
                                 </p>
                             </div>
 
@@ -911,7 +910,7 @@
                                     Collectibles System
                                 </h5>
                                 <p class="role-description">
-                                    Implemented all game pickups with unique benefits and programmed smooth curve animations for collection feedback, adding polish and making item collection more rewarding.
+                                    Every pickup in the game is mine, each with its own benefit, plus the curve-based animation they follow when you collect them.
                                 </p>
                             </div>
 
@@ -921,7 +920,7 @@
                                     Pool System
                                 </h5>
                                 <p class="role-description">
-                                    An object pool system was implemented to optimize performance by pre-instantiating and reusing pickups, enemies, and particles. The system is distance-based, allowing for efficient management of large levels without degrading framerate.
+                                    I wrote an object pool that pre-instantiates and reuses pickups, enemies and particles, activating them based on distance to the player. It's what lets the big levels run without the framerate falling apart.
                                 </p>
                             </div>
                         </div>
@@ -930,7 +929,7 @@
 
                 <!-- Development Challenges & Solutions -->
                 <div class="challenges-section">
-                    <h3 class="challenges-title">Development Challenges & Solutions</h3>
+                    <h3 class="challenges-title">Problems I Ran Into</h3>
                     <div class="challenges-grid">
                         <div class="challenge-card fade-in">
                             <div class="challenge-header">
@@ -942,16 +941,16 @@
                             </div>
                             
                             <div class="challenge-problem">
-                                <div class="challenge-problem-title"> Challenge</div>
+                                <div class="challenge-problem-title">The problem</div>
                                 <p class="challenge-text">
-                                    Creating ranged enemies that felt challenging but fair. Initial AI was either too aggressive (frustrating) or too passive (boring), affecting the game's tension and pacing.
+                                    My first versions of the ranged enemies were either too aggressive — frustrating — or too passive — boring. Neither felt fair, and it threw off the pacing of every fight.
                                 </p>
                             </div>
 
                             <div class="challenge-solution">
-                                <div class="challenge-solution-title"> Solution</div>
+                                <div class="challenge-solution-title">How I fixed it</div>
                                 <p class="challenge-text">
-                                    Implemented a dynamic behavior system with multiple states: patrol, detection and combat. Added randomization to shooting patterns to create unpredictable but manageable encounters.
+                                    I split the behavior into states — patrol, detection, combat — and added some randomness to the shooting patterns. That keeps encounters readable but never quite predictable.
                                 </p>
                             </div>
                         </div>
@@ -966,16 +965,16 @@
                             </div>
                             
                             <div class="challenge-problem">
-                                <div class="challenge-problem-title"> Challenge</div>
+                                <div class="challenge-problem-title">The problem</div>
                                 <p class="challenge-text">
-                                    Ensuring audio cues matched gameplay events precisely. Delayed or misaligned sound effects broke immersion and made combat feel disconnected from player actions.
+                                    Sounds firing late or out of sync with what was happening on screen. A delayed hit sound is a small thing, but it made the whole combat feel disconnected.
                                 </p>
                             </div>
 
                             <div class="challenge-solution">
-                                <div class="challenge-solution-title"> Solution</div>
+                                <div class="challenge-solution-title">How I fixed it</div>
                                 <p class="challenge-text">
-                                    Created a centralized audio manager system. Implemented audio pooling and precise timing mechanisms to ensure perfect synchronization between actions and sounds.
+                                    I centralized everything in an audio manager with pooled audio sources, so each effect plays the moment its gameplay event fires instead of waiting on instantiation.
                                 </p>
                             </div>
                         </div>
@@ -990,16 +989,16 @@
                             </div>
                             
                             <div class="challenge-problem">
-                                <div class="challenge-problem-title"> Challenge</div>
+                                <div class="challenge-problem-title">The problem</div>
                                 <p class="challenge-text">
-                                    Particle effects were causing frame rate drops, especially during intense combat scenarios with multiple explosions and pickups on screen simultaneously.
+                                    The particle effects were tanking the framerate, especially in big fights with several explosions and pickups on screen at once.
                                 </p>
                             </div>
 
                             <div class="challenge-solution">
-                                <div class="challenge-solution-title"> Solution</div>
+                                <div class="challenge-solution-title">How I fixed it</div>
                                 <p class="challenge-text">
-                                    Implemented object pooling for particle systems, optimized particle count based on distance from camera.
+                                    I moved the particle systems into the object pool and scaled the particle count down with distance from the camera. Far-away explosions don't need all that confetti.
                                 </p>
                             </div>
                         </div>
@@ -1014,16 +1013,16 @@
                             </div>
                             
                             <div class="challenge-problem">
-                                <div class="challenge-problem-title"> Challenge</div>
+                                <div class="challenge-problem-title">The problem</div>
                                 <p class="challenge-text">
-                                    Creating smooth, satisfying pickup animations that felt rewarding without interrupting gameplay flow or causing collision issues with the collection system.
+                                    Pickup animations had to feel rewarding without getting in the way — and my early attempts kept causing collision problems with the collection logic mid-animation.
                                 </p>
                             </div>
 
                             <div class="challenge-solution">
-                                <div class="challenge-solution-title"> Solution</div>
+                                <div class="challenge-solution-title">How I fixed it</div>
                                 <p class="challenge-text">
-                                    Developed a curve-based animation system using CurveVector for natural movement, with collision detection disabled during animation and visual feedback that scales with pickup value.
+                                    I ended up animating them with CurveVector for a natural arc, turning their collision off while the animation runs, and scaling the visual feedback with the pickup's value.
                                 </p>
                             </div>
                         </div>
@@ -1055,13 +1054,8 @@
                 <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
                     © Copyright <span style="color: #84fab0; font-weight: 600;">Pau Badia</span> 2025. All Rights Reserved
                 </div>
-                <div style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
-                    <span>Built with:</span>
-                    <div style="display: flex; gap: 0.5rem; align-items: center;">
-                        <div style="background: rgba(132, 250, 176, 0.1); border: 1px solid rgba(132, 250, 176, 0.3); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.8rem; color: #84fab0;">HTML5</div>
-                        <div style="background: rgba(132, 250, 176, 0.1); border: 1px solid rgba(132, 250, 176, 0.3); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.8rem; color: #84fab0;">CSS3</div>
-                        <div style="background: rgba(132, 250, 176, 0.1); border: 1px solid rgba(132, 250, 176, 0.3); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.8rem; color: #84fab0;">JavaScript</div>
-                    </div>
+                <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
+                    No frameworks here — just HTML, CSS and a bit of JavaScript.
                 </div>
             </div>
         </footer>

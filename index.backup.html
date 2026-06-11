@@ -427,102 +427,20 @@
             font-size: 4rem;
             font-weight: 900;
             margin-bottom: 1.5rem;
-            background: linear-gradient(120deg, #667eea, #4facfe, #f093fb, #764ba2, #667eea);
-            background-size: 300% 300%;
+            background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.3));
-            opacity: 0;
-            animation: riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards,
-                       gradientShift 8s ease-in-out infinite;
+            animation: textGlow 3s ease-in-out infinite;
         }
 
-        @keyframes gradientShift {
+        @keyframes textGlow {
             0%, 100% {
-                background-position: 0% 50%;
+                filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.3));
             }
             50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        /* Entrada escalonada del hero */
-        @keyframes riseIn {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-subtitle,
-        .hero-description,
-        .hero-buttons {
-            opacity: 0;
-            animation: riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-
-        .hero-subtitle { animation-delay: 0.35s; }
-        .hero-description { animation-delay: 0.55s; }
-        .hero-buttons { animation-delay: 0.75s; }
-
-        .hero-visual {
-            opacity: 0;
-            animation: heroVisualIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
-        }
-
-        @keyframes heroVisualIn {
-            from {
-                opacity: 0;
-                transform: scale(0.75) rotate(-8deg);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
-        }
-
-        /* Indicador de scroll del hero */
-        .scroll-hint {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.6rem;
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0;
-            animation: riseIn 1s ease 1.5s forwards;
-            z-index: 3;
-            pointer-events: none;
-        }
-
-        .scroll-hint .chevron {
-            width: 12px;
-            height: 12px;
-            border-right: 2px solid #667eea;
-            border-bottom: 2px solid #667eea;
-            transform: rotate(45deg);
-            animation: chevronBounce 1.8s ease-in-out infinite;
-        }
-
-        @keyframes chevronBounce {
-            0%, 100% {
-                transform: translateY(0) rotate(45deg);
-                opacity: 0.4;
-            }
-            50% {
-                transform: translateY(8px) rotate(45deg);
-                opacity: 1;
+                filter: drop-shadow(0 8px 16px rgba(102, 126, 234, 0.6));
             }
         }
 
@@ -1330,26 +1248,35 @@
             box-shadow: var(--shadow-elevation-3);
         }
 
-        /* Animaciones de entrada de proyectos (con transiciones, para no
-           bloquear el efecto tilt 3D del hover) */
-        .project-item {
-            transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-                        box-shadow 0.35s ease;
-            will-change: transform, opacity;
+        /* Animaciones adicionales para proyectos */
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100px) scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
         }
 
-        .project-item.slide-in-left {
-            transform: translateX(-80px) scale(0.96);
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(100px) scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
         }
 
-        .project-item.slide-in-right {
-            transform: translateX(80px) scale(0.96);
+        .project-item.slide-in-left.visible {
+            animation: slideInLeft 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
-        .project-item.visible {
-            opacity: 1;
-            transform: translateX(0) scale(1);
+        .project-item.slide-in-right.visible {
+            animation: slideInRight 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
         /* Efectos adicionales para navegación activa */
@@ -1366,11 +1293,11 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2, #4facfe, #00f2fe);
+            background: linear-gradient(90deg, var(--primary-gradient));
             transform-origin: left;
             transform: scaleX(0);
             z-index: 9999;
-            transition: transform 0.1s linear;
+            transition: transform 0.3s ease;
         }
 
         .particle {
@@ -1874,211 +1801,6 @@
             }
         }
 
-        /* ===== Mejoras visuales y nuevas transiciones ===== */
-
-        /* Scrollbar personalizada */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #0c0c0c;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #667eea, #764ba2);
-            border-radius: 10px;
-            border: 2px solid #0c0c0c;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #764ba2, #4facfe);
-        }
-
-        /* Fondo aurora animado */
-        .aurora {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .aurora span {
-            position: absolute;
-            width: 55vmax;
-            height: 55vmax;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.16;
-            animation: auroraMove 26s ease-in-out infinite alternate;
-        }
-
-        .aurora span:nth-child(1) {
-            background: #667eea;
-            top: -20%;
-            left: -10%;
-        }
-
-        .aurora span:nth-child(2) {
-            background: #f5576c;
-            bottom: -25%;
-            right: -15%;
-            animation-delay: -9s;
-            animation-duration: 32s;
-        }
-
-        .aurora span:nth-child(3) {
-            background: #00f2fe;
-            top: 40%;
-            left: 45%;
-            animation-delay: -18s;
-            animation-duration: 38s;
-        }
-
-        @keyframes auroraMove {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            50% {
-                transform: translate(8vw, -6vh) scale(1.15);
-            }
-            100% {
-                transform: translate(-6vw, 8vh) scale(0.95);
-            }
-        }
-
-        /* Subrayado animado en títulos de sección */
-        .projects-header h2 {
-            position: relative;
-            display: inline-block;
-            padding-bottom: 0.8rem;
-        }
-
-        .projects-header h2::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            width: 100px;
-            height: 4px;
-            border-radius: 4px;
-            background: linear-gradient(90deg, #667eea, #4facfe);
-            transform: translateX(-50%) scaleX(0);
-            transform-origin: center;
-            transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
-        }
-
-        .projects-header.visible h2::after {
-            transform: translateX(-50%) scaleX(1);
-        }
-
-        /* Destello que recorre la imagen del proyecto al hacer hover */
-        .project-image-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -140%;
-            width: 60%;
-            height: 100%;
-            background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.18), transparent);
-            transform: skewX(-20deg);
-            transition: left 0.9s ease;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .project-item:hover .project-image-container::after {
-            left: 170%;
-        }
-
-        /* Brillo que sigue al cursor sobre las tarjetas de proyecto */
-        .project-item {
-            --mx: 50%;
-            --my: 50%;
-        }
-
-        .project-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 30px;
-            background: radial-gradient(550px circle at var(--mx) var(--my), rgba(102, 126, 234, 0.14), transparent 45%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        .project-item:hover::after {
-            opacity: 1;
-        }
-
-        /* Tags con vida */
-        .tag {
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .tag:hover {
-            transform: translateY(-4px) scale(1.05);
-            background: var(--primary-gradient);
-            border-color: transparent;
-            box-shadow: var(--shadow-color-primary);
-        }
-
-        /* Iconos de skills con rebote */
-        .skill-icon {
-            display: inline-block;
-            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .skill-card:hover .skill-icon {
-            transform: translateY(-10px) scale(1.2) rotate(-6deg);
-        }
-
-        /* Botón volver arriba */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            border: none;
-            background: var(--primary-gradient);
-            color: #ffffff;
-            font-size: 1.3rem;
-            cursor: pointer;
-            z-index: 1100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-            box-shadow: var(--shadow-color-primary);
-        }
-
-        .back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .back-to-top:hover {
-            transform: translateY(-5px) scale(1.08);
-            box-shadow: var(--shadow-elevation-3), var(--shadow-color-primary);
-        }
-
-        /* Transición de salida al navegar a un proyecto */
-        body {
-            transition: opacity 0.35s ease;
-        }
-
-        body.page-exit {
-            opacity: 0;
-        }
-
         /* Reduced motion preferences */
         @media (prefers-reduced-motion: reduce) {
             *,
@@ -2104,16 +1826,6 @@
     </style>
 </head>
 <body>
-    <!-- Barra de progreso de scroll -->
-    <div class="scroll-indicator" id="scrollIndicator"></div>
-
-    <!-- Fondo aurora animado -->
-    <div class="aurora" aria-hidden="true">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-
     <!-- Elementos flotantes de fondo -->
     <div class="floating-elements">
         <div class="floating-screen"></div>
@@ -2171,33 +1883,28 @@
     <main class="main-content">
         <!-- Hero Section -->
         <section class="hero" id="home">
-            <div class="hero-text">
+            <div class="hero-text fade-in">
                 <h1>Pau Badia Villanueva</h1>
                 <p class="hero-subtitle">Game Developer & Graphics Programmer</p>
                 <p class="hero-description">
-                    I'm a game developer based in Valencia. I work mostly with Unity and
-                    Unreal Engine 5, and I enjoy the low-level side of things too — I've
-                    built my own OpenGL engine and a few AI experiments along the way.
+                    Crafting immersive digital experiences with cutting-edge technology. 
+                    Specialized in Unity, Unreal Engine, and custom graphics engines.
                 </p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn-primary">View My Work</a>
                     <button onclick="downloadCV()" class="btn-secondary">Download CV</button>
                 </div>
             </div>
-            <div class="hero-visual">
+            <div class="hero-visual fade-in">
                 <div class="hero-avatar">PB</div>
-            </div>
-            <div class="scroll-hint" aria-hidden="true">
-                <span>Scroll</span>
-                <span class="chevron"></span>
             </div>
         </section>
 
         <!-- Projects Section -->
         <section class="projects-section" id="projects">
             <div class="projects-header fade-in">
-                <h2>Projects</h2>
-                <p>Some of the things I've built — from a game on Steam to a custom engine</p>
+                <h2>Featured Projects</h2>
+                <p>Explore my latest work in game development and graphics programming</p>
             </div>
 
             <div class="filter-nav fade-in">
@@ -2215,7 +1922,7 @@
                         <div class="project-header">
                             <div class="project-info">
                                 <h3>Little Miner World</h3>
-                                <p>A 3D mining RPG made in Unity, now on Steam. The terrain is procedural voxel (Marching Cubes), so you can dig anywhere you like — and there's a mineral codex to fill, a shop to upgrade your pickaxe, NPCs to talk to and missions to complete.</p>
+                                <p>A 3D mining RPG built in Unity featuring procedural voxel terrain generated with Marching Cubes, a full pickaxe mining mechanic, mineral codex, shop upgrades, NPC dialogue, and mission systems.</p>
                                 <div class="project-tags">
                                     <span class="tag">Unity</span>
                                     <span class="tag">C#</span>
@@ -2226,10 +1933,16 @@
                         </div>
                         <div class="project-stats">
                             <div class="stat">
-                                <span>Available on Steam</span>
+                                <span>⛏️</span>
+                                <span>Mining RPG</span>
                             </div>
                             <div class="stat">
-                                <span>Procedural terrain</span>
+                                <span>🌍</span>
+                                <span>Procedural World</span>
+                            </div>
+                            <div class="stat">
+                                <span>🎮</span>
+                                <span>Unity 3D</span>
                             </div>
                         </div>
                     </div>
@@ -2257,7 +1970,7 @@
                         <div class="project-header">
                             <div class="project-info">
                                 <h3>Elysian Siege: The Prince's Uprising</h3>
-                                <p>My HND final project: an action-adventure game made with a team in Unreal Engine 5 over nine months. My part was the ranged enemy AI, the audio, the particle effects, the pickups and the object pooling system.</p>
+                                <p>An epic action-adventure game developed as my HND final project. Features advanced combat mechanics, dynamic environments, and cinematic storytelling.</p>
                                 <div class="project-tags">
                                     <span class="tag">Unreal Engine 5</span>
                                     <span class="tag">C++</span>
@@ -2268,13 +1981,16 @@
                         </div>
                         <div class="project-stats">
                             <div class="stat">
-                                <span>Team project</span>
-                            </div>
-                            <div class="stat">
+                                <span>⏱️</span>
                                 <span>9 months</span>
                             </div>
                             <div class="stat">
-                                <span>On Steam</span>
+                                <span>🎯</span>
+                                <span>Team Project</span>
+                            </div>
+                            <div class="stat">
+                                <span>⚡</span>
+                                <span>HND Final</span>
                             </div>
                         </div>
                     </div>
@@ -2286,7 +2002,7 @@
                         <div class="project-header">
                             <div class="project-info">
                                 <h3>OPEngine</h3>
-                                <p>A graphics engine written in C++ and OpenGL together with a classmate for our engine programming course. It has forward and deferred rendering, an ECS architecture, procedural terrain and Lua scripting.</p>
+                                <p>Custom graphics engine built from scratch using OpenGL and modern C++. Features advanced rendering techniques and scripting support.</p>
                                 <div class="project-tags">
                                     <span class="tag">C++</span>
                                     <span class="tag">OpenGL</span>
@@ -2297,10 +2013,12 @@
                         </div>
                         <div class="project-stats">
                             <div class="stat">
-                                <span>Two-person team</span>
+                                <span>⚡</span>
+                                <span>High Performance</span>
                             </div>
                             <div class="stat">
-                                <span>University project</span>
+                                <span>🔧</span>
+                                <span>Custom Engine</span>
                             </div>
                         </div>
                     </div>
@@ -2328,7 +2046,7 @@
                         <div class="project-header">
                             <div class="project-info">
                                 <h3>Snake NEAT AI</h3>
-                                <p>An experiment in C++ and SFML: training neural networks to play Snake with the NEAT algorithm. You can watch each generation get a little less terrible at the game.</p>
+                                <p>Machine learning implementation using NEAT algorithm to train AI agents to play Snake. Demonstrates evolution and neural networks.</p>
                                 <div class="project-tags">
                                     <span class="tag">C++</span>
                                     <span class="tag">NEAT Algorithm</span>
@@ -2339,10 +2057,12 @@
                         </div>
                         <div class="project-stats">
                             <div class="stat">
-                                <span>Neuroevolution</span>
+                                <span>🧠</span>
+                                <span>Machine Learning</span>
                             </div>
                             <div class="stat">
-                                <span>Personal project</span>
+                                <span>🐍</span>
+                                <span>Game AI</span>
                             </div>
                         </div>
                     </div>
@@ -2386,8 +2106,8 @@
         <section class="contact-section" id="contact">
             <div class="contact-container">
                 <div class="contact-info fade-in">
-                    <h2>Get in Touch</h2>
-                    <p>If you want to talk about a project, a position, or just about games, send me an email. I usually answer fast.</p>
+                    <h2>Let's Work Together</h2>
+                    <p>Ready to bring your game ideas to life? Let's connect and create something amazing.</p>
                     
                     <div class="contact-details">
                         <div class="contact-item">
@@ -2428,13 +2148,15 @@
                 © Copyright <span>Pau Badia</span> 2025. All Rights Reserved
             </div>
             <div class="tech-stack">
-                <span>No frameworks here — just HTML, CSS and a bit of JavaScript.</span>
+                <span>Built with:</span>
+                <div class="tech-tags">
+                    <div class="tech-tag">HTML5</div>
+                    <div class="tech-tag">CSS3</div>
+                    <div class="tech-tag">JavaScript</div>
+                </div>
             </div>
         </div>
     </footer>
-
-    <!-- Botón volver arriba -->
-    <button class="back-to-top" id="backToTop" type="button" aria-label="Volver arriba">↑</button>
 
     <!-- Modal para imágenes -->
     <div class="image-modal" id="imageModal">
@@ -2443,75 +2165,67 @@
     </div>
 
     <script>
-        // Revelado suave al hacer scroll (una sola vez por elemento)
+        // Animación bidireccional mejorada para proyectos
         function observeElements() {
+            let lastScrollY = window.scrollY;
+            
             const observer = new IntersectionObserver((entries) => {
+                const currentScrollY = window.scrollY;
+                const scrollingDown = currentScrollY > lastScrollY;
+                
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
+                    const element = entry.target;
+                    
+                    if (element.classList.contains('project-item')) {
+                        if (entry.isIntersecting) {
+                            // Elemento entrando en vista
+                            element.classList.add('visible');
+                            element.classList.remove('hidden');
+                        } else {
+                            // Elemento saliendo de vista
+                            element.classList.remove('visible');
+                            element.classList.add('hidden');
+                            
+                            // Determinar dirección de salida basada en la dirección del scroll
+                            if (scrollingDown) {
+                                // Scrolling hacia abajo - el elemento sale por arriba
+                                if (element.classList.contains('slide-in-left')) {
+                                    element.style.transform = 'translateX(-100px)';
+                                } else if (element.classList.contains('slide-in-right')) {
+                                    element.style.transform = 'translateX(100px)';
+                                }
+                            } else {
+                                // Scrolling hacia arriba - el elemento sale por abajo
+                                if (element.classList.contains('slide-in-left')) {
+                                    element.style.transform = 'translateX(-100px)';
+                                } else if (element.classList.contains('slide-in-right')) {
+                                    element.style.transform = 'translateX(100px)';
+                                }
+                            }
+                        }
+                    } else {
+                        // Elementos fade-in normales
+                        if (entry.isIntersecting) {
+                            element.classList.add('visible');
+                        }
                     }
                 });
+                
+                lastScrollY = currentScrollY;
             }, {
-                threshold: 0.12,
-                rootMargin: '0px 0px -60px 0px'
+                threshold: 0.15,
+                rootMargin: '-50px 0px -50px 0px'
             });
 
-            document.querySelectorAll('.fade-in, .project-item').forEach(el => {
+            // Observar elementos fade-in normales
+            document.querySelectorAll('.fade-in').forEach(el => {
                 observer.observe(el);
             });
-        }
 
-        // Barra de progreso de scroll
-        function initScrollProgress() {
-            const indicator = document.getElementById('scrollIndicator');
-            if (!indicator) return;
-
-            const update = () => {
-                const total = document.documentElement.scrollHeight - window.innerHeight;
-                const progress = total > 0 ? window.scrollY / total : 0;
-                indicator.style.transform = `scaleX(${progress})`;
-            };
-
-            window.addEventListener('scroll', update, { passive: true });
-            update();
-        }
-
-        // Botón volver arriba
-        function initBackToTop() {
-            const button = document.getElementById('backToTop');
-            if (!button) return;
-
-            window.addEventListener('scroll', () => {
-                button.classList.toggle('show', window.scrollY > 600);
-            }, { passive: true });
-
-            button.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Observar proyectos con animación alternada
+            document.querySelectorAll('.project-item').forEach(el => {
+                observer.observe(el);
             });
-        }
-
-        // Partículas sutiles de fondo
-        function initParticles() {
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-            if (window.innerWidth <= 768) return;
-
-            const container = document.querySelector('.floating-elements');
-            if (!container) return;
-
-            const colors = ['#667eea', '#4facfe', '#f093fb', '#43e97b'];
-            for (let i = 0; i < 22; i++) {
-                const particle = document.createElement('span');
-                particle.className = 'particle';
-                const size = 2 + Math.random() * 4;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.animationDuration = `${9 + Math.random() * 12}s`;
-                particle.style.animationDelay = `${Math.random() * 12}s`;
-                container.appendChild(particle);
-            }
         }
 
         // Filtrado de proyectos - Actualizado para nuevo layout
@@ -2671,6 +2385,24 @@
             });
         }
 
+        // Efecto de escritura para el hero
+        function initTypingEffect() {
+            const heroTitle = document.querySelector('.hero h1');
+            const text = heroTitle.textContent;
+            heroTitle.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < text.length) {
+                    heroTitle.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 150);
+                }
+            };
+            
+            setTimeout(typeWriter, 1000);
+        }
+
         // Toggle de la barra lateral en móviles
         function initSidebarToggle() {
             const body = document.body;
@@ -2717,34 +2449,19 @@
             toggleSidebar(false);
         }
 
-        // Tilt 3D y brillo que sigue al cursor en las tarjetas de proyecto
+        // Animaciones de hover para proyectos - Actualizado
         function initProjectAnimations() {
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-            const maxTilt = 4; // grados
-
-            document.querySelectorAll('.project-item').forEach(item => {
-                item.addEventListener('mousemove', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-
-                    // Posición del brillo radial
-                    this.style.setProperty('--mx', `${x}px`);
-                    this.style.setProperty('--my', `${y}px`);
-
-                    // Inclinación según la posición del cursor
-                    const rotateY = ((x / rect.width) - 0.5) * maxTilt * 2;
-                    const rotateX = (0.5 - (y / rect.height)) * maxTilt * 2;
-
-                    this.style.transition = 'transform 0.12s ease-out, box-shadow 0.35s ease';
-                    this.style.transform =
-                        `perspective(1000px) translateY(-8px) scale(1.015) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            const projectItems = document.querySelectorAll('.project-item');
+            
+            projectItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(0) scale(1.02)';
+                    this.style.boxShadow = '0 25px 50px rgba(132, 250, 176, 0.3)';
                 });
-
+                
                 item.addEventListener('mouseleave', function() {
-                    this.style.transition = '';
-                    this.style.transform = '';
+                    this.style.transform = 'translateX(0) scale(1)';
+                    this.style.boxShadow = '0 20px 40px rgba(132, 250, 176, 0.2)';
                 });
             });
         }
@@ -2772,12 +2489,8 @@
             });
         }
 
-        // Navegar al detalle del proyecto con fundido de salida
         function viewProjectDetails(projectSlug) {
-            document.body.classList.add('page-exit');
-            setTimeout(() => {
-                window.location.href = `Projects/${projectSlug}.html`;
-            }, 350);
+            window.location.href = `Projects/${projectSlug}.html`;
         }
 
         // Inicializar todo
@@ -2787,17 +2500,112 @@
             initSmoothScrolling();
             initParallax();
             highlightActiveSection();
+            initTypingEffect();
             initSidebarToggle();
             initProjectAnimations();
-            initScrollProgress();
-            initBackToTop();
-            initParticles();
+            
+            // Animación inicial escalonada
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in').forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('visible');
+                    }, index * 100);
+                });
+            }, 500);
         });
 
-        // Restaurar el fundido si se vuelve atrás desde un proyecto (bfcache)
-        window.addEventListener('pageshow', function() {
-            document.body.classList.remove('page-exit');
-        });
+        // Añadir estilos adicionales para la navegación activa y animaciones bidireccionales
+        const style = document.createElement('style');
+        style.textContent = `
+            .nav-item.active {
+                background: rgba(132, 250, 176, 0.2);
+                color: #84fab0;
+            }
+            
+            @keyframes slideInLeft {
+                from {
+                    opacity: 0;
+                    transform: translateX(-100px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(100px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            @keyframes slideOutLeft {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(-100px);
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(100px);
+                }
+            }
+            
+            .project-item.slide-in-left.visible {
+                animation: slideInLeft 0.8s ease-out forwards;
+            }
+            
+            .project-item.slide-in-right.visible {
+                animation: slideInRight 0.8s ease-out forwards;
+            }
+            
+            .project-item.slide-in-left.hidden {
+                animation: slideOutLeft 0.6s ease-in forwards;
+            }
+            
+            .project-item.slide-in-right.hidden {
+                animation: slideOutRight 0.6s ease-in forwards;
+            }
+            
+            .project-item {
+                opacity: 0;
+                transition: all 0.6s ease;
+            }
+            
+            .project-item.visible {
+                opacity: 1;
+            }
+            
+            .project-item.hidden {
+                opacity: 0;
+            }
+            
+            input:focus, textarea:focus {
+                outline: none;
+                border-color: #84fab0;
+                box-shadow: 0 0 10px rgba(132, 250, 176, 0.3);
+            }
+            
+            input::placeholder, textarea::placeholder {
+                color: rgba(255, 255, 255, 0.5);
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

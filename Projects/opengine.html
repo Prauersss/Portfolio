@@ -823,7 +823,7 @@
         <!-- Hero Section -->
         <section class="project-hero fade-in">
             <h1>OPEngine</h1>
-            <p class="project-hero-subtitle">Custom graphics engine</p>
+            <p class="project-hero-subtitle">A C++ / OpenGL game engine, written from scratch with a classmate</p>
             <div class="project-tags">
                 <span class="tag">C++</span>
                 <span class="tag">OpenGL</span>
@@ -856,9 +856,9 @@
         <section class="enhanced-overview">
             <!-- Project Overview Header -->
             <div class="section-header fade-in">
-                <h2 class="section-title">Project Overview</h2>
+                <h2 class="section-title">About the Project</h2>
                 <p class="section-subtitle">
-                    C++ game engine developed from scratch for the Graphics Engine Programming course.
+                    Our Graphics Engine Programming course project: a full engine, no libraries doing the heavy lifting for us.
                 </p>
             </div>
 
@@ -866,16 +866,15 @@
                 <!-- Main Overview Card -->
                 <div class="overview-card fade-in">
                     <h3 class="card-title">
-                        
-                        Concept & Vision
+                        The Engine
                     </h3>
                     <p class="card-text">
-                        OPEngine is a game engine developed entirely from scratch in C++ by <strong>Rubén Gil Fabregat</strong> and <strong>Pau Badía Villanueva</strong>. This engine was created for the Graphics Engine Programming course with the goal of implementing modern rendering techniques, scalable entity and component systems, and advanced tools for creating virtual worlds.
+                        OPEngine is a game engine that <strong>Rubén Gil Fabregat</strong> and I wrote from scratch in C++ for our Graphics Engine Programming course. The idea was to implement modern rendering techniques ourselves instead of relying on an existing engine — plus an ECS architecture and enough tooling to actually build small worlds with it.
                     </p>
 
                     <!-- My Role Section -->
                     <div class="role-section">
-                        <h4 class="role-title">Main Features</h4>
+                        <h4 class="role-title">What's Inside</h4>
                         <div class="role-grid">
                             <div class="role-item slide-in-left">
                                 <h5 class="role-item-title">
@@ -883,7 +882,7 @@
                                     Rendering System
                                 </h5>
                                 <p class="role-description">
-                                    OpenGL-based rendering with support for advanced lighting, shading techniques, volumetric clouds, Ambient Occlusion, and dynamic skyboxes.
+                                    An OpenGL renderer with forward and deferred paths, volumetric clouds, ambient occlusion and dynamic skyboxes.
                                 </p>
                             </div>
 
@@ -893,7 +892,7 @@
                                     Terrain Generation
                                 </h5>
                                 <p class="role-description">
-                                    Advanced procedural terrain generation system with Perlin noise algorithms, adjustable height maps, and environmental element distribution.
+                                    Procedural terrain built on Perlin noise, with adjustable height maps and automatic placement of environment props like trees and rocks.
                                 </p>
                             </div>
 
@@ -903,7 +902,7 @@
                                     ECS System
                                 </h5>
                                 <p class="role-description">
-                                    Entity Component System-based architecture for high performance, parallelization, clear organization, and component reuse.
+                                    The whole engine is organized as an Entity Component System, which keeps things fast, easy to parallelize and easy to reuse.
                                 </p>
                             </div>
 
@@ -913,7 +912,7 @@
                                     Physics System
                                 </h5>
                                 <p class="role-description">
-                                    Rigid body simulation with collision detection, using an Octree structure to optimize collision detection between objects.
+                                    Rigid body simulation with collision detection, using an octree so we don't test every object against every other object.
                                 </p>
                             </div>
 
@@ -923,7 +922,7 @@
                                     Dynamic Skyboxes
                                 </h5>
                                 <p class="role-description">
-                                    Skybox management system with support for multiple environments and transitions, enhancing visual immersion in created worlds.
+                                    Multiple sky environments with smooth transitions between them, so a scene can shift mood without a hard cut.
                                 </p>
                             </div>
                         </div>
@@ -932,7 +931,7 @@
 
                 <!-- Development Challenges & Solutions -->
                 <div class="challenges-section">
-                    <h3 class="challenges-title">Development Challenges & Solutions</h3>
+                    <h3 class="challenges-title">Problems We Ran Into</h3>
                     <div class="challenges-grid">
                         <div class="challenge-card fade-in">
                             <div class="challenge-header">
@@ -944,16 +943,16 @@
                             </div>
                             
                             <div class="challenge-problem">
-                                <div class="challenge-problem-title"> Challenge</div>
+                                <div class="challenge-problem-title">The problem</div>
                                 <p class="challenge-text">
-                                    Implement an efficient deferred rendering system that could handle multiple light sources and advanced effects without compromising performance.
+                                    We wanted the engine to handle many light sources at once, and a classic forward renderer just couldn't keep up with the lighting cost per object.
                                 </p>
                             </div>
 
                             <div class="challenge-solution">
-                                <div class="challenge-solution-title"> Solution</div>
+                                <div class="challenge-solution-title">How we fixed it</div>
                                 <p class="challenge-text">
-                                    Development of a multi-pass system (geometry pass, lighting pass, shadow pass) with buffer optimization and efficient GPU resource management.
+                                    We built a deferred pipeline with separate geometry, lighting and shadow passes, and spent a good while optimizing the buffers and how we manage GPU resources between passes.
                                 </p>
                             </div>
                         </div>
@@ -968,16 +967,16 @@
                             </div>
                             
                             <div class="challenge-problem">
-                                <div class="challenge-problem-title"> Challenge</div>
+                                <div class="challenge-problem-title">The problem</div>
                                 <p class="challenge-text">
-                                    Create realistic procedural terrain with consistent textures, natural element distribution, and optimization for real-time rendering.
+                                    Making procedural terrain that looks natural is harder than it sounds — our first attempts looked like random lumps with trees scattered in odd places.
                                 </p>
                             </div>
 
                             <div class="challenge-solution">
-                                <div class="challenge-solution-title"> Solution</div>
+                                <div class="challenge-solution-title">How we fixed it</div>
                                 <p class="challenge-text">
-                                    Implementation of multi-octave Perlin noise algorithms, generation of height and color maps, and application of masks to create natural island shapes.
+                                    Layering several octaves of Perlin noise gave the terrain believable detail, and combining height maps, color maps and shape masks let us carve out natural-looking islands.
                                 </p>
                             </div>
                         </div>
@@ -992,16 +991,16 @@
                             </div>
                             
                             <div class="challenge-problem">
-                                <div class="challenge-problem-title"> Challenge</div>
+                                <div class="challenge-problem-title">The problem</div>
                                 <p class="challenge-text">
-                                    Design an efficient ECS system that allows for high parallelization, low memory overhead, and easy component maintenance.
+                                    Designing the ECS so it stayed fast was tricky: scattered allocations meant cache misses everywhere, and iterating over components was slower than it should have been.
                                 </p>
                             </div>
 
                             <div class="challenge-solution">
-                                <div class="challenge-solution-title"> Solution</div>
+                                <div class="challenge-solution-title">How we fixed it</div>
                                 <p class="challenge-text">
-                                    Implementation of a Component Manager with contiguous memory pools for each component type, enabling fast and cache-friendly iterations.
+                                    We wrote a component manager that keeps each component type in its own contiguous memory pool, so iterating over them is cache-friendly and fast.
                                 </p>
                             </div>
                         </div>
@@ -1016,16 +1015,16 @@
                             </div>
                             
                             <div class="challenge-problem">
-                                <div class="challenge-problem-title"> Challenge</div>
+                                <div class="challenge-problem-title">The problem</div>
                                 <p class="challenge-text">
-                                    Optimize collision detection in scenes with hundreds of objects, maintaining the necessary accuracy without impacting performance.
+                                    With hundreds of objects in a scene, brute-force collision checks were eating the frame budget long before the renderer got its turn.
                                 </p>
                             </div>
 
                             <div class="challenge-solution">
-                                <div class="challenge-solution-title"> Solution</div>
+                                <div class="challenge-solution-title">How we fixed it</div>
                                 <p class="challenge-text">
-                                    Implementation of a hybrid system with broad-phase detection using Octree and narrow-phase with accurate collision tests between AABBs and triangles.
+                                    We went with the classic two-phase approach: an octree for the broad phase to discard most pairs early, then accurate AABB and triangle tests only on whatever survives.
                                 </p>
                             </div>
                         </div>
@@ -1057,13 +1056,8 @@
                 <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
                     © Copyright <span style="color: #84fab0; font-weight: 600;">Pau Badia</span> 2025. All Rights Reserved
                 </div>
-                <div style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
-                    <span>Built with:</span>
-                    <div style="display: flex; gap: 0.5rem; align-items: center;">
-                        <div style="background: rgba(132, 250, 176, 0.1); border: 1px solid rgba(132, 250, 176, 0.3); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.8rem; color: #84fab0;">HTML5</div>
-                        <div style="background: rgba(132, 250, 176, 0.1); border: 1px solid rgba(132, 250, 176, 0.3); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.8rem; color: #84fab0;">CSS3</div>
-                        <div style="background: rgba(132, 250, 176, 0.1); border: 1px solid rgba(132, 250, 176, 0.3); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.8rem; color: #84fab0;">JavaScript</div>
-                    </div>
+                <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
+                    No frameworks here — just HTML, CSS and a bit of JavaScript.
                 </div>
             </div>
         </footer>
